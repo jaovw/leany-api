@@ -1,1 +1,4 @@
-export class CreateTeamDto {}
+export class CreateTeamDto {
+  nomeDoTime: string;
+  treinadorId: number;
+}
