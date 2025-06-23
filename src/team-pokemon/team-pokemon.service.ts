@@ -5,6 +5,8 @@ import { TeamPokemon } from './entities/team-pokemon.entity';
 import { Team } from 'src/team/entities/team.entity';
 import { CreateTeamPokemonDto } from './dto/create-team-pokemon.dto';
 import { UpdateTeamPokemonDto } from './dto/update-team-pokemon.dto';
+import { HttpService } from '@nestjs/axios';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class TeamPokemonService {
@@ -14,6 +16,8 @@ export class TeamPokemonService {
 
     @InjectRepository(Team)
     private teamRepository: Repository<Team>,
+
+    private httpService: HttpService,
   ) {}
 
   async create(dto: CreateTeamPokemonDto): Promise<TeamPokemon> {
@@ -75,5 +79,40 @@ export class TeamPokemonService {
   async remove(id: number): Promise<void> {
     const teamPokemon = await this.findOne(id);
     await this.teamPokemonRepository.remove(teamPokemon);
+  }
+
+  async validatePokemonExists(pokemonIdOuNome: string): Promise<any> {
+    try {
+      const response = await firstValueFrom(
+        this.httpService.get(`https://pokeapi.co/api/v2/pokemon/${pokemonIdOuNome.toLowerCase()}`)
+      );
+
+      return response.data;
+    } catch (error) {
+      throw new BadRequestException(`Pokémon "${pokemonIdOuNome}" não encontrado na PokéAPI`);
+    }
+  }
+
+  async listEnrichedByTeam(teamId: number) {
+    const team = await this.teamRepository.findOne({
+      where: { id: teamId },
+      relations: ['pokemons'],
+    });
+
+    if (!team) throw new NotFoundException('Time não encontrado');
+
+    const enriched = await Promise.all(
+      team.pokemons.map(async (pokemon) => {
+        const pokeData = await this.validatePokemonExists(pokemon.pokemonIdOuNome);
+        return {
+          id: pokemon.id,
+          nome: pokeData.name,
+          tipos: pokeData.types.map((t) => t.type.name),
+          sprite: pokeData.sprites.front_default,
+        };
+      })
+    );
+
+    return enriched;
   }
 }

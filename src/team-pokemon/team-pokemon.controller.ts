@@ -12,6 +12,21 @@ export class TeamPokemonController {
     return this.service.create(dto);
   }
 
+  // [joaovictor - 23/06/2025] Criar Pokémon em um time (valida e adiciona)
+  @Post('/team/:teamId')
+  async addPokemonToTeam(
+    @Param('teamId') teamId: string,
+    @Body('pokemonIdOuNome') pokemonIdOuNome: string,
+  ) {
+    await this.service.validatePokemonExists(pokemonIdOuNome);
+
+    return this.service.create({
+      pokemonIdOuNome,
+      timeId: +teamId,
+    });
+  }
+
+
   @Get()
   findAll() {
     return this.service.findAll();
@@ -21,6 +36,13 @@ export class TeamPokemonController {
   findOne(@Param('id') id: string) {
     return this.service.findOne(+id);
   }
+
+  // [joaovictor - 23/06/2025] Listar Pokémons de um time com enriquecimento
+  @Get('/team/:teamId')
+  async listByTeam(@Param('teamId') teamId: string) {
+    return this.service.listEnrichedByTeam(+teamId);
+  }
+
 
   @Put(':id')
   update(@Param('id') id: string, @Body() dto: UpdateTeamPokemonDto) {
