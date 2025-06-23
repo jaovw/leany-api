@@ -1,1 +1,4 @@
-export class CreateTrainerDto {}
+export class CreateTrainerDto {
+  nome: string;
+  cidadeOrigem?: string;
+}

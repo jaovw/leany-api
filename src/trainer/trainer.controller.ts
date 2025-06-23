@@ -1,15 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Put } from '@nestjs/common';
 import { TrainerService } from './trainer.service';
 import { CreateTrainerDto } from './dto/create-trainer.dto';
 import { UpdateTrainerDto } from './dto/update-trainer.dto';
 
-@Controller('trainer')
+@Controller('trainers')
 export class TrainerController {
   constructor(private readonly trainerService: TrainerService) {}
 
   @Post()
-  create(@Body() createTrainerDto: CreateTrainerDto) {
-    return this.trainerService.create(createTrainerDto);
+  create(@Body() dto: CreateTrainerDto) {
+    return this.trainerService.create(dto);
   }
 
   @Get()
@@ -22,9 +22,9 @@ export class TrainerController {
     return this.trainerService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTrainerDto: UpdateTrainerDto) {
-    return this.trainerService.update(+id, updateTrainerDto);
+  @Put(':id')
+  update(@Param('id') id: string, @Body() dto: UpdateTrainerDto) {
+    return this.trainerService.update(+id, dto);
   }
 
   @Delete(':id')
