@@ -1,4 +1,4 @@
-# PokéTeam Manager API
+# PokéAPI
 
 Este projeto é uma API RESTful construída com NestJS e SQLite com o objetivo de gerenciar treinadores, seus times e os pokémons associados. Ele possui integração com a PokéAPI oficial para validação e enriquecimento de dados dos pokémons, e respeita limites de regras de negócio como quantidade máxima de pokémons por time.
 
@@ -100,7 +100,28 @@ http://localhost:3000
 
 ## 📚 Documentação
 
-A documentação OpenAPI/Swagger estará disponível em breve.
+Esta API utiliza o Swagger (OpenAPI) para documentar todos os seus endpoints de forma interativa e automática.
+
+A documentação está disponível após subir o projeto em:
+
+**[http://localhost:3000/api](http://localhost:3000/api)**
+
+Através dessa interface você poderá:
+
+- Navegar por todos os endpoints (GET, POST, PUT, DELETE)
+- Visualizar os schemas de dados utilizados nos corpos de requisição (`body`) e respostas
+- Ver exemplos de payloads esperados
+- Testar as requisições diretamente do navegador
+
+### 🔍 Detalhes técnicos da documentação
+
+- Todos os **DTOs** estão anotados com `@ApiProperty` para que os parâmetros de entrada sejam exibidos corretamente
+- Os **Controllers** estão anotados com:
+  - `@ApiTags` para agrupar endpoints por entidade
+  - `@ApiOperation` para descrever cada ação
+  - `@ApiResponse` para indicar os códigos HTTP esperados
+  - `@ApiBody` para mostrar os payloads esperados em requisições do tipo `POST` e `PUT`
+- A documentação é gerada automaticamente a partir do código fonte, garantindo sempre consistência com a implementação
 
 
 
