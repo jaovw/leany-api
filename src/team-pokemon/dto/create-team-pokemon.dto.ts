@@ -1,1 +1,4 @@
-export class CreateTeamPokemonDto {}
+export class CreateTeamPokemonDto {
+  pokemonIdOuNome: string;
+  timeId: number;
+}
