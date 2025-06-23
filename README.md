@@ -1,98 +1,115 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# PokéTeam Manager API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Este projeto é uma API RESTful construída com NestJS e SQLite com o objetivo de gerenciar treinadores, seus times e os pokémons associados. Ele possui integração com a PokéAPI oficial para validação e enriquecimento de dados dos pokémons, e respeita limites de regras de negócio como quantidade máxima de pokémons por time.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+## 🚀 Tecnologias Utilizadas
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- [NestJS](https://nestjs.com/)
+- [TypeORM](https://typeorm.io/)
+- [SQLite](https://www.sqlite.org/index.html)
+- [Docker](https://www.docker.com/)
+- [PokéAPI](https://pokeapi.co/)
+- [Axios](https://axios-http.com/)
+- [class-validator](https://github.com/typestack/class-validator)
 
-## Project setup
+
+
+## ✅ Pré-requisitos
+
+- Docker instalado e funcionando
+- Yarn instalado globalmente
+- (Opcional) Node.js para rodar localmente sem Docker
+
+
+
+## 📦 Como Rodar o Projeto
 
 ```bash
-$ yarn install
+# 1. Clone o repositório
+git clone https://github.com/jaovw/leany-api.git
+cd leany-api
+
+# 2. Suba a aplicação com Docker
+docker-compose up --build
+
+# 2.1 Caso não tenha o Docker instalado
+yarn start:dev
+
+# 3. Acesse a aplicação
+http://localhost:3000
 ```
 
-## Compile and run the project
 
-```bash
-# development
-$ yarn run start
 
-# watch mode
-$ yarn run start:dev
+## 📁 Estrutura do Projeto
 
-# production mode
-$ yarn run start:prod
-```
+    ├── src
+    │   ├── trainer
+    │   │   ├── trainer.controller.ts
+    │   │   ├── trainer.service.ts
+    │   │   ├── trainer.entity.ts
+    │   │   ├── dto/
+    │   ├── team
+    │   │   ├── team.controller.ts
+    │   │   ├── team.service.ts
+    │   │   ├── team.entity.ts
+    │   │   ├── dto/
+    │   ├── team-pokemon
+    │   │   ├── team-pokemon.controller.ts
+    │   │   ├── team-pokemon.service.ts
+    │   │   ├── team-pokemon.entity.ts
+    │   │   ├── dto/
+    │   ├── app.module.ts
+    │   └── main.ts
+    ├── db.sqlite
+    ├── docker-compose.yml
+    └── Dockerfile
 
-## Run tests
 
-```bash
-# unit tests
-$ yarn run test
 
-# e2e tests
-$ yarn run test:e2e
+## 🔗 Endpoints Disponíveis
 
-# test coverage
-$ yarn run test:cov
-```
+> Todas as requisições que recebem dados utilizam **validações com `class-validator`**, garantindo integridade e segurança dos dados.
 
-## Deployment
+### 👤 Treinadores
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+- **GET /trainers** — Lista todos
+- **GET /trainers/:id** — Detalha um treinador
+- **POST /trainers** — Cria um treinador
+- **PUT /trainers/:id** — Atualiza
+- **DELETE /trainers/:id** — Remove
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+### 🛡 Times
 
-```bash
-$ yarn install -g @nestjs/mau
-$ mau deploy
-```
+- **GET /teams** — Lista todos os times
+- **GET /teams/:id** — Detalha
+- **POST /teams** — Cria um time para um treinador
+- **PUT /teams/:id** — Atualiza
+- **DELETE /teams/:id** — Remove
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+### ⚡ Pokémons de Time
 
-## Resources
+- **POST /team-pokemons/team/:teamId** — Adiciona um pokémon a um time
+  - Valida se o Pokémon existe na PokéAPI
+  - Respeita o limite de 6 pokémons por time
+- **GET /team-pokemons/team/:teamId** — Lista os pokémons de um time com enriquecimento (nome, tipos e sprite da PokéAPI)
+- **DELETE /team-pokemons/:id** — Remove um pokémon de um time
 
-Check out a few resources that may come in handy when working with NestJS:
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
 
-## Support
+## 📚 Documentação
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+A documentação OpenAPI/Swagger estará disponível em breve.
 
-## Stay in touch
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
 
-## License
+## 🧩 Estrutura do Banco de Dados
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+O banco de dados utilizado é o SQLite (`db.sqlite`) e está configurado no root do projeto.
+### Regras
+
+- Um **treinador** pode ter vários **times**
+- Um **time** pode ter até **6 pokémons**
+- Um mesmo **pokémon** pode existir em diferentes **times**
+
