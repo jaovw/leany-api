@@ -9,7 +9,7 @@ import { TeamPokemonModule } from './team-pokemon/team-pokemon.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'sqlite',
-      database: 'db.sqlite',
+      database: 'src/database/db.sqlite',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
