@@ -34,6 +34,7 @@ cd leany-api
 docker-compose up --build
 
 # 2.1 Caso não tenha o Docker instalado
+yarn
 yarn start:dev
 
 # 3. Acesse a aplicação
@@ -45,6 +46,8 @@ http://localhost:3000
 ## 📁 Estrutura do Projeto
 
     ├── src
+    │   ├── database
+    │   │   ├── db.sqlite
     │   ├── trainer
     │   │   ├── trainer.controller.ts
     │   │   ├── trainer.service.ts
@@ -62,7 +65,6 @@ http://localhost:3000
     │   │   ├── dto/
     │   ├── app.module.ts
     │   └── main.ts
-    ├── db.sqlite
     ├── docker-compose.yml
     └── Dockerfile
 
