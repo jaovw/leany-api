@@ -25,22 +25,27 @@ Este projeto é uma API RESTful construída com NestJS e SQLite com o objetivo d
 
 ## 📦 Como Rodar o Projeto
 
-```bash
-# 1. Clone o repositório
-git clone https://github.com/jaovw/leany-api.git
-cd leany-api
+Siga os passos abaixo para configurar e rodar a API em sua máquina:
 
-# 2. Suba a aplicação com Docker
-docker-compose up --build
+1. **Clone o repositório**:
+   ```bash
+   git clone <url>
+   cd <dir_name>
+   ```
 
-# 2.1 Caso não tenha o Docker instalado
-yarn
-yarn start:dev
+2. **Instale as dependências**:
+   ```bash
+   yarn
+   ```
+3. **Rode a aplicação**:
+   ```bash
+   yarn start:dev
+   ```
 
-# 3. Acesse a aplicação
-http://localhost:3000
-```
-
+**Utilizando Docker 🐋**:
+   ```bash
+   docker-compose up --build
+   ```
 
 
 ## 📁 Estrutura do Projeto
